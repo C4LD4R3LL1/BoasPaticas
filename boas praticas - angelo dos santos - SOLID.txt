@@ -1,0 +1,191 @@
+﻿Grupo: 
+-Angelo Dos Santos - Ciência da computação - 2 ano
+-Witor tenã - Ciência da computação - 2 ano
+-thiago - Ciência da computação - 2 ano
+-Rafael eiji - Ciência da computação - 2 ano
+-Sibelly - Ciência da computação - 2 ano
+-Saulo Nakayama - Ciência da computação - 2 ano
+-Luis - Ciência da computação - 4 ano
+
+
+Atividade:
+
+
+Pesquisar sobre o SOLID , Fazer a pesquisa do conceito e trazer um exemplo de um código bom e um código ruim.
+
+
+Separação:
+
+
+-Angelo Dos Santos - Pesquisar o I
+-Witor tenã - Pesquisar o S
+-thiago - Pesquisar o O
+-Rafael eiji - Pesquisar o S
+-Sibelly - Pesquisar o L
+-Saulo Nakayama - Pesquisar o D
+-Luis - Pesquisar o L
+
+
+Resposta do Angelo:
+
+
+Princípio I do SOLID - Interface Segregation Principle (ISP)
+O Interface Segregation Principle (Princípio da Segregação de Interfaces) diz que:
+* Uma classe não deve ser obrigada a implementar métodos que ela não utiliza.
+Esse princípio é muito usado em Engenharia de Software e em projetos baseados em Programação Orientada a Objetos(POO).
+A ideia principal é dividir interfaces grandes em interfaces menores e mais específicas. Assim, cada classe implementa somente os comportamentos que realmente precisa.
+Quando isso não é seguido, podem surgir problemas como:
+* métodos vazios ou com erro (throw).
+* classes com responsabilidades que não fazem sentido.
+* código mais difícil de manter.
+* maior chance de bugs.
+Exemplo de código ruim (violando o ISP):
+Neste exemplo existe uma interface chamada Trabalhador, que define duas ações: trabalhar e comer.
+
+
+Código:
+// Interface geral para qualquer tipo de trabalhador
+interface Trabalhador {
+
+
+    void trabalhar(); // ação de trabalhar
+
+
+    void comer(); // ação de comer
+}
+
+
+
+
+// Classe que representa um trabalhador humano
+class Humano implements Trabalhador {
+
+
+    @Override
+    public void trabalhar() {
+        // humano consegue trabalhar normalmente
+        System.out.println("Humano trabalhando...");
+    }
+
+
+    @Override
+    public void comer() {
+        // humano também precisa comer
+        System.out.println("Humano comendo...");
+    }
+}
+
+
+
+
+// Classe que representa um robô trabalhador
+class Robo implements Trabalhador {
+
+
+    @Override
+    public void trabalhar() {
+        // robô pode trabalhar normalmente
+        System.out.println("Robô trabalhando...");
+    }
+
+
+    @Override
+    public void comer() {
+        // robôs não comem
+        // mas mesmo assim são obrigados a implementar o método
+        throw new UnsupportedOperationException("Robôs não comem");
+    }
+}
+
+
+O problema nesse código:
+O erro está na interface muito grande e genérica. A interface Trabalhador obriga todas as classes a implementar comer(), mesmo que isso não faça sentido para algumas delas.
+
+
+No caso do robô, foi feito as seguintes coisas:
+* criar um método que não deveria existir.
+* lançar uma exceção para evitar uso.
+* adicionar complexidade desnecessária.
+Isso viola o Interface Segregation Principle, porque a classe foi forçada a implementar algo que não usa.
+
+
+Exemplo de código bom (seguindo o ISP):
+Agora vamos separar a interface em partes menores, cada uma representando um comportamento específico.
+
+
+Código:
+// Interface apenas para quem pode trabalhar
+interface Trabalhar {
+
+
+    void trabalhar(); // comportamento de trabalho
+}
+
+
+
+
+// Interface apenas para quem precisa comer
+interface Comer {
+
+
+    void comer(); // comportamento de alimentação
+}
+
+
+
+
+// Classe Humano agora implementa apenas as interfaces que fazem sentido
+class Humano implements Trabalhar, Comer {
+
+
+    @Override
+    public void trabalhar() {
+        // humano executa trabalho
+        System.out.println("Humano trabalhando...");
+    }
+
+
+    @Override
+    public void comer() {
+        // humano também precisa se alimentar
+        System.out.println("Humano comendo...");
+    }
+}
+
+
+
+
+// Classe Robo implementa somente o que ele realmente precisa
+class Robo implements Trabalhar {
+
+
+    @Override
+    public void trabalhar() {
+        // robô executa apenas tarefas de trabalho
+        System.out.println("Robô trabalhando...");
+    }
+
+
+}
+
+
+O que mudou utilizando o ISP:
+Agora o sistema está mais correto conceitualmente.
+Antes:
+* uma interface grande.
+* métodos inúteis.
+* classes obrigadas a implementar coisas desnecessárias.
+Depois:
+* interfaces menores e específicas.
+* cada classe implementa somente o necessário.
+* código mais limpo e organizado.
+
+
+O Interface Segregation Principle busca evitar interfaces "gordas" (com muitos métodos). Em vez disso, o ideal é criar interfaces pequenas e especializadas, por exemplo:
+* Interface Trabalhar
+* Interface Comer
+* Interface Dormir
+* Interface Dirigir
+
+
+Assim, cada classe escolhe somente as interfaces que fazem sentido para ela.
