@@ -1,0 +1,62 @@
+Princípio da Responsabilidade Única (Single Responsibility Principle)
+
+O primeiro princípio do SOLID é o Princípio da Responsabilidade Única, que afirma que uma classe deve ter apenas uma única responsabilidade.
+Em outras palavras, cada classe deve fazer apenas uma coisa bem definida. Quando uma classe possui muitas responsabilidades diferentes, ela se torna difícil de entender, manter e modificar.
+Separar responsabilidades torna o código mais organizado, reutilizável e fácil de testar.
+
+---
+
+Neste exemplo, a classe Produto faz muitas coisas: ela representa o produto, salva no banco e também gera um relatório.
+
+class Produto {
+  String nome;
+  double preco;
+
+  void salvarNoBanco() {
+      // lógica para salvar no banco de dados
+  }
+
+  void gerarRelatorio() {
+      // lógica para gerar relatório
+  }
+}
+
+Problemas desse exemplo:
+
+* A classe tem múltiplas responsabilidades
+* Se o sistema de relatório mudar, a classe Produto precisa mudar
+* Se o sistema de banco mudar, também precisa mudar
+* O código fica mais difícil de manter
+
+---
+
+Aqui cada classe tem apenas uma responsabilidade.
+
+class Produto {
+  String nome;
+  double preco;
+  }
+
+  class ProdutoRepository {
+
+  void salvar(Produto produto) {
+      // lógica de salvar no banco
+  }
+}
+
+class ProdutoRelatorio {
+  void gerar(Produto produto) {
+      // lógica de gerar relatório
+  }
+}
+
+Vantagens desse modelo:
+
+* Cada classe possui uma única responsabilidade
+* O código fica mais organizado
+* Mudanças em relatórios não afetam a classe Produto
+* Mudanças no banco não afetam outras partes do sistema
+
+Resumo
+
+O Princípio da Responsabilidade Única ajuda a criar sistemas mais organizados e fáceis de manter. Quando cada classe possui apenas uma função clara, o código se torna mais modular, reutilizável e menos propenso a erros.
