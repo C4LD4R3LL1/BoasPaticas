@@ -1,0 +1,26 @@
+O Liskov Substitution Principle (LSP) diz algo bem simples:
+
+Se uma classe B herda de uma classe A, então qualquer lugar que usa A deveria conseguir usar B sem quebrar o programa.
+
+Ou seja:
+A classe filha deve se comportar de forma compatível com a classe pai.
+
+Ideia em linguagem simples
+
+Se o código espera um tipo pai, ele não deveria ter problema quando receber um tipo filho.
+
+A herança só faz sentido quando o filho realmente é um tipo do pai.
+
+Exemplo correto:
+
+class Ave {
+    void voar() {
+        System.out.println("A ave está voando");
+    }
+}
+
+class Pardal extends Ave {
+}
+
+Ave ave = new Pardal();
+ave.voar();
