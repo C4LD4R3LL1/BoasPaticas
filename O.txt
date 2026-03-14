@@ -1,0 +1,99 @@
+﻿Princípio Aberto/Fechado (Open/Closed Principle)
+O princípio Open/Closed afirma que classes devem estar abertas para extensão, mas fechadas para modificação.
+Isso significa que, quando precisamos adicionar um novo comportamento ao sistema, devemos estender o código existente, criando novas classes ou implementações, em vez de modificar classes que já estão funcionando.
+Modificar constantemente uma classe existente aumenta o risco de introduzir erros no sistema e dificulta a manutenção.
+________________
+
+
+Neste exemplo, a classe CalculadoraDesconto precisa ser modificada toda vez que um novo tipo de cliente é criado.
+class CalculadoraDesconto {
+
+
+   double calcularDesconto(String tipoCliente, double valor) {
+
+
+       if (tipoCliente.equals("comum")) {
+           return valor * 0.05;
+       }
+
+
+       if (tipoCliente.equals("vip")) {
+           return valor * 0.10;
+       }
+
+
+       if (tipoCliente.equals("funcionario")) {
+           return valor * 0.20;
+       }
+
+
+       return 0;
+   }
+}
+Problemas desse exemplo:
+* A classe precisa ser modificada sempre que surgir um novo tipo de cliente
+
+* O código tende a crescer com muitos if/else
+
+* Existe risco de quebrar funcionalidades existentes
+
+* O código fica mais difícil de manter
+
+________________
+
+
+Aqui o sistema é organizado de forma que novos tipos de desconto possam ser adicionados sem modificar o código existente.
+abstract class Desconto {
+   abstract double calcular(double valor);
+}
+class DescontoComum extends Desconto {
+
+
+   double calcular(double valor) {
+       return valor * 0.05;
+   }
+}
+class DescontoVIP extends Desconto {
+
+
+   double calcular(double valor) {
+       return valor * 0.10;
+   }
+}
+class DescontoFuncionario extends Desconto {
+
+
+   double calcular(double valor) {
+       return valor * 0.20;
+   }
+}
+Uso:
+Desconto desconto = new DescontoVIP();
+System.out.println(desconto.calcular(100));
+Se surgir um novo tipo de cliente, basta criar uma nova classe:
+class DescontoPremium extends Desconto {
+
+
+   double calcular(double valor) {
+       return valor * 0.30;
+   }
+}
+Nenhuma classe existente precisa ser modificada.
+________________
+
+
+Vantagens desse modelo:
+   * Novos comportamentos podem ser adicionados sem alterar código existente
+
+   * O sistema fica mais seguro contra erros
+
+   * O código se torna mais organizado e extensível
+
+   * Evita grandes blocos de if/else
+
+________________
+
+
+Resumo
+O Princípio Aberto/Fechado permite que o sistema evolua sem modificar classes que já funcionam.
+Ao criar novas classes para adicionar funcionalidades, o código se torna mais seguro, modular e fácil de manter.
