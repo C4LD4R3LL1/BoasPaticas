@@ -1,0 +1,158 @@
+﻿O Princípio da Inversão de Dependência (DIP) estabelece que módulos de alto nível não devem depender de módulos de baixo nível; ambos devem depender de abstrações (interfaces/classes abstratas). 
+
+
+Outra definição poderia ser: abstrações não devem depender de detalhes, mas sim o contrário. Isso desacopla o sistema, aumentando a flexibilidade, testabilidade e facilitando a manutenção.
+—————————————————————————————————————Neste exemplo, classe depende diretamente de EmailService:
+
+
+class EmailService {
+
+
+    public void enviarEmail(String mensagem) {
+        System.out.println("Enviando email: " + mensagem);
+    }
+
+
+}
+
+
+class Notificacao {
+
+
+    private EmailService emailService;
+
+
+    public Notificacao() {
+        emailService = new EmailService();
+    }
+
+
+    public void notificarUsuario(String mensagem) {
+        emailService.enviarEmail(mensagem);
+    }
+
+
+}
+
+
+public class Main {
+
+
+    public static void main(String[] args) {
+        Notificacao notificacao = new Notificacao();
+        notificacao.notificarUsuario("Pedido confirmado!");
+    }
+
+
+}
+
+
+Problemas deste exemplo:
+
+
+A classe Notificacao depende diretamente de EmailService.
+
+
+O sistema fica fortemente acoplado a uma implementação específica.
+
+
+Consequentemente Isso dificulta manutenção e expansão do código pois novas implementações exigem modificações diretas na classe existente.
+
+
+
+
+
+
+Aqui uma versão corrigida usando o conceito D (Princípio da Inversão de Dependência)
+
+
+interface MensagemService {
+
+
+    void enviarMensagem(String mensagem);
+
+
+}
+
+
+class EmailService implements MensagemService {
+
+
+    public void enviarMensagem(String mensagem) {
+        System.out.println("Enviando email: " + mensagem);
+    }
+
+
+}
+
+
+class SMSService implements MensagemService {
+
+
+    public void enviarMensagem(String mensagem) {
+        System.out.println("Enviando SMS: " + mensagem);
+    }
+
+
+}
+
+
+class Notificacao {
+
+
+    private MensagemService mensagemService;
+
+
+    public Notificacao(MensagemService mensagemService) {
+        this.mensagemService = mensagemService;
+    }
+
+
+    public void notificarUsuario(String mensagem) {
+        mensagemService.enviarMensagem(mensagem);
+    }
+
+
+}
+
+
+public class Main {
+
+
+    public static void main(String[] args) {
+
+
+        MensagemService service = new EmailService();
+
+
+        Notificacao notificacao = new Notificacao(service);
+
+
+        notificacao.notificarUsuario("Pedido confirmado!");
+
+
+    }
+
+
+}
+
+
+
+
+Vantagens desse modelo:
+
+
+* A classe Notificacao depende de uma abstração (MensagemService).
+
+
+* O sistema fica mais flexível e extensível.
+
+
+* Mesmo estando maior, o código se torna mais fácil de manter e evoluir.
+
+
+
+
+
+
+Resumo: O Princípio da Inversão de Dependência ajuda a criar sistemas mais flexíveis e fáceis de manter. Quando as classes passam a depender de abstrações, como interfaces, em vez de implementações concretas, o código se torna menos acoplado, mais reutilizável e mais simples de expandir sem modificar partes já existentes do sistema.
