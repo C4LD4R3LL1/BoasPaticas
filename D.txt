@@ -2,7 +2,8 @@
 
 
 Outra definição poderia ser: abstrações não devem depender de detalhes, mas sim o contrário. Isso desacopla o sistema, aumentando a flexibilidade, testabilidade e facilitando a manutenção.
-—————————————————————————————————————Neste exemplo, classe depende diretamente de EmailService:
+—————————————————————————————————————
+Neste exemplo, classe depende diretamente de EmailService:
 
 
 class EmailService {
@@ -59,7 +60,7 @@ O sistema fica fortemente acoplado a uma implementação específica.
 Consequentemente Isso dificulta manutenção e expansão do código pois novas implementações exigem modificações diretas na classe existente.
 
 
-
+—————————————————————————————————————
 
 
 
@@ -151,8 +152,7 @@ Vantagens desse modelo:
 * Mesmo estando maior, o código se torna mais fácil de manter e evoluir.
 
 
-
-
+—————————————————————————————————————
 
 
 Resumo: O Princípio da Inversão de Dependência ajuda a criar sistemas mais flexíveis e fáceis de manter. Quando as classes passam a depender de abstrações, como interfaces, em vez de implementações concretas, o código se torna menos acoplado, mais reutilizável e mais simples de expandir sem modificar partes já existentes do sistema.
