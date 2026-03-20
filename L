@@ -1,4 +1,4 @@
-O Liskov Substitution Principle (LSP) diz algo bem simples:
+# O Liskov Substitution Principle (LSP) diz algo bem simples:
 
 Se uma classe B herda de uma classe A, então qualquer lugar que usa A deveria conseguir usar B sem quebrar o programa.
 
@@ -11,9 +11,10 @@ Se o código espera um tipo pai, ele não deveria ter problema quando receber um
 
 A herança só faz sentido quando o filho realmente é um tipo do pai.
 
-Exemplo correto:
 
-class Ave {
+### Exemplo correto:
+
+'class Ave {
     void voar() {
         System.out.println("A ave está voando");
     }
@@ -23,4 +24,30 @@ class Pardal extends Ave {
 }
 
 Ave ave = new Pardal();
-ave.voar();
+ave.voar();'
+
+---
+
+## Desvantagens do Princípio de Liskov
+
+- Exige mais planejamento na modelagem das classes;
+- Pode aumentar o número de classes no sistema;
+- Dificuldade para identificar violações;
+- Pode tornar o código mais complexo inicialmente.
+
+### Exemplo errado que viola LSP
+
+class Ave {
+    public void voar() {
+        System.out.println("Voando...");
+    }
+}
+
+class Pinguim extends Ave {
+    @Override
+    public void voar() {
+        throw new UnsupportedOperationException("Pinguins não voam");
+    }
+}
+
+O sistema espera que toda ave voe. O pinguim quebra essa expectativa. Subclasses devem poder substituir suas classes base sem alterar o comportamento do sistema.
